@@ -11,9 +11,14 @@
 	<groupId>de.flozo</groupId>
 	<artifactId>running</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>running</name>
+    <packaging>pom</packaging>
+    <name>running</name>
 	<description>Organize running exercises</description>
-	<properties>
+    <modules>
+        <module>data</module>
+		<module>web</module>
+	</modules>
+    <properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>

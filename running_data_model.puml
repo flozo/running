@@ -1,0 +1,48 @@
+@startuml
+enum EnergyUnit {
+    KILO_CALORIES("kcal")
+    KILO_JOULE("kJ")
+}
+
+entity Energy {
+    value String
+    unit EnergyUnit
+}
+
+entity Lap {
+    id Long
+    lapNumber Integer
+    lapTime LocalTime
+    avgHeartRate Integer
+    maxHeartRate Integer
+    energyBurned Energy
+}
+
+enum EventType {
+    TRAINING
+    RUN
+}
+
+entity Route {
+    name String
+    totalDistanceKilometers Double
+    laps Integer
+}
+
+entity RunningEvent {
+    id Long
+    type EventType
+    route Route
+    temperatureCelsius Double
+    remarks String
+    laps Set<Lap>
+}
+
+Energy --> EnergyUnit
+Lap --> Energy
+RunningEvent --> EventType
+RunningEvent "*" <--> "1" Route
+RunningEvent "1" <--> "*" Lap
+
+
+@enduml

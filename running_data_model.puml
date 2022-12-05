@@ -33,6 +33,8 @@ entity RunningEvent {
     id Long
     type EventType
     route Route
+    date Date
+    startTime LocalTime
     temperatureCelsius Double
     remarks String
     laps Set<Lap>

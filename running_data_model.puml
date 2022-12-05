@@ -25,6 +25,7 @@ enum EventType {
 
 entity Route {
     name String
+    location String
     totalDistanceKilometers Double
     laps Integer
 }

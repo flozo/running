@@ -20,7 +20,7 @@ entity Lap {
 
 enum EventType {
     TRAINING
-    RUN
+    RACE
 }
 
 entity Route {

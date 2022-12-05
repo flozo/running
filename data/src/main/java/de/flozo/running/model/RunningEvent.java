@@ -1,6 +1,8 @@
 package de.flozo.running.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -13,6 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 @Entity
+@Table(name = "running_events")
 public class RunningEvent extends BaseEntity {
 
     private EventType eventType;
@@ -22,6 +25,7 @@ public class RunningEvent extends BaseEntity {
     private Double temperatureCelsius;
     private String remarks;
 
+    @OneToMany(mappedBy = "running_event")
     private Set<Lap> laps;
 
 

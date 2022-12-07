@@ -90,12 +90,12 @@ public class DataLoader implements CommandLineRunner {
         lap3.setRunningEvent(runningEvent);
 
         System.out.println("Save laps ...");
-        Lap savedLap1 = lapService.save(lap1);
-        Lap savedLap2 = lapService.save(lap2);
-        Lap savedLap3 = lapService.save(lap3);
+//        Lap savedLap1 = lapService.save(lap1);
+//        Lap savedLap2 = lapService.save(lap2);
+//        Lap savedLap3 = lapService.save(lap3);
 
         System.out.println("Save running event ...");
-        RunningEvent savedRunningEvent = runningEventService.save(runningEvent);
+//        RunningEvent savedRunningEvent = runningEventService.save(runningEvent);
 
 
     }

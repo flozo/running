@@ -20,12 +20,19 @@ public class RunningEvent extends BaseEntity {
     private EventType eventType;
 
     @ManyToOne
-    @JoinColumn(name = "route_id", nullable = false)
+    @JoinColumn(name = "route_id")
     private Route route;
 
+    @Column
     private LocalDate date;
+
+    @Column
     private LocalTime startTime;
+
+    @Column
     private Double temperatureCelsius;
+
+    @Column
     private String remarks;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "running_event")

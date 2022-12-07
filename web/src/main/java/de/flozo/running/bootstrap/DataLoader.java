@@ -4,6 +4,7 @@ import de.flozo.running.model.*;
 import de.flozo.running.services.LapService;
 import de.flozo.running.services.RouteService;
 import de.flozo.running.services.RunningEventService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
-public class DataLoader {
+public class DataLoader implements CommandLineRunner {
 
     private final LapService lapService;
     private final RouteService routeService;
@@ -25,17 +26,26 @@ public class DataLoader {
     }
 
 
+    @Override
+    public void run(String... args) throws Exception {
+        loadData();
+
+    }
+
     private void loadData() {
 
+        System.out.println("New route ...");
         Route tenKmRoute1 = new Route();
         tenKmRoute1.setLocation("City forest");
         tenKmRoute1.setName("10 km route");
         tenKmRoute1.setTotalDistanceKilometers(10.0);
         tenKmRoute1.setNumberOfLaps(3);
 
+        System.out.println("Save route ...");
         Route savedRoute = routeService.save(tenKmRoute1);
 
 
+        System.out.println("New laps ...");
         Lap lap1 = new Lap();
         lap1.setLapNumber(1);
         lap1.setLapTime(LocalTime.of(0, 15, 29, 600000000));
@@ -63,6 +73,7 @@ public class DataLoader {
         laps.add(lap2);
         laps.add(lap3);
 
+        System.out.println("New running event ...");
         RunningEvent runningEvent = new RunningEvent();
         runningEvent.setEventType(EventType.TRAINING);
         runningEvent.setRoute(savedRoute);
@@ -73,16 +84,18 @@ public class DataLoader {
         runningEvent.setLaps(laps);
 
 
+        System.out.println("Add running event to laps ...");
         lap1.setRunningEvent(runningEvent);
         lap2.setRunningEvent(runningEvent);
         lap3.setRunningEvent(runningEvent);
 
+        System.out.println("Save laps ...");
         Lap savedLap1 = lapService.save(lap1);
         Lap savedLap2 = lapService.save(lap2);
         Lap savedLap3 = lapService.save(lap3);
 
+        System.out.println("Save running event ...");
         RunningEvent savedRunningEvent = runningEventService.save(runningEvent);
-
 
 
     }

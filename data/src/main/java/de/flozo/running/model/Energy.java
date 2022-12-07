@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Embeddable
-public class Energy extends BaseEntity {
+public class Energy {
 
     @Column(name = "energy_value")
     private Double value;

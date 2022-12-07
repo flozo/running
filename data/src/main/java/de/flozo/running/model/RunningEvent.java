@@ -1,19 +1,23 @@
 package de.flozo.running.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+//@Getter
+//@Setter
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@ToString
+@EqualsAndHashCode(callSuper = true)
+@Data
 @Entity
-@Table(name = "running_events")
+//@Table(name = "running_events")
 public class RunningEvent extends BaseEntity {
 
     @Enumerated(value = EnumType.STRING)
@@ -35,8 +39,8 @@ public class RunningEvent extends BaseEntity {
     @Column
     private String remarks;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "running_event")
-    private Set<Lap> laps;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "runningEvent")
+    private Set<Lap> laps = new HashSet<>();
 
 
 }

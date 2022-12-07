@@ -1,18 +1,17 @@
 package de.flozo.running.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.time.LocalTime;
 
-//@Getter
-//@Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@ToString
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+//@EqualsAndHashCode(callSuper = true)
+//@Data
 @Entity
 //@Table(name = "laps")
 public class Lap extends BaseEntity {
@@ -37,5 +36,8 @@ public class Lap extends BaseEntity {
     @JoinColumn(name = "running_event_id")
     private RunningEvent runningEvent;
 
+//    public RunningEvent addToRunningEvent(RunningEvent runningEvent) {
+//
+//    }
 
 }

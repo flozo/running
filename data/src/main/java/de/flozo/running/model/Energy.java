@@ -19,6 +19,7 @@ public class Energy {
     private Double value;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "energy_unit")
     private EnergyUnit unit;
 
 

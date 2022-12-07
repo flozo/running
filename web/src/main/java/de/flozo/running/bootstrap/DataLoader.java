@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -34,6 +32,9 @@ public class DataLoader implements CommandLineRunner {
 
     private void loadData() {
 
+
+        // Define route 1
+
         System.out.println("New route ...");
         Route tenKmRoute1 = new Route();
         tenKmRoute1.setLocation("City forest");
@@ -42,9 +43,46 @@ public class DataLoader implements CommandLineRunner {
         tenKmRoute1.setNumberOfLaps(3);
 
         System.out.println("Save route ...");
-        Route savedRoute = routeService.save(tenKmRoute1);
+        Route savedRoute1 = routeService.save(tenKmRoute1);
+
+        // Define route 2
+
+        System.out.println("New route ...");
+        Route tenKmRoute2 = new Route();
+        tenKmRoute2.setLocation("Park");
+        tenKmRoute2.setName("10 km route in park");
+        tenKmRoute2.setTotalDistanceKilometers(10.0);
+        tenKmRoute2.setNumberOfLaps(4);
+
+        System.out.println("Save route ...");
+        Route savedRoute2 = routeService.save(tenKmRoute2);
 
 
+
+        // Define running event 1
+
+        System.out.println("New running event ...");
+        RunningEvent runningEvent1 = new RunningEvent();
+        runningEvent1.setEventType(EventType.RACE);
+        runningEvent1.setRoute(savedRoute1);
+        runningEvent1.setTemperatureCelsius(1.0);
+        runningEvent1.setDate(LocalDate.of(2022, 12, 4));
+        runningEvent1.setStartTime(LocalTime.of(10, 0));
+        runningEvent1.setRemarks("very cold");
+
+        // Define running event 2
+
+        System.out.println("New running event ...");
+        RunningEvent runningEvent2 = new RunningEvent();
+        runningEvent2.setEventType(EventType.TRAINING);
+        runningEvent2.setRoute(savedRoute1);
+        runningEvent2.setTemperatureCelsius(9.0);
+        runningEvent2.setDate(LocalDate.of(2022, 11, 25));
+        runningEvent2.setStartTime(LocalTime.of(16, 29));
+        runningEvent2.setRemarks("nothing special");
+
+        // Laps of event 1
+        // Define lap 1
         System.out.println("New laps ...");
         Lap lap1 = new Lap();
         lap1.setLapNumber(1);
@@ -52,50 +90,84 @@ public class DataLoader implements CommandLineRunner {
         lap1.setAvgHeartRate(174);
         lap1.setMaxHeartRate(180);
         lap1.setEnergyBurned(new Energy(233.0, EnergyUnit.KILO_CALORIES));
+        lap1.setRunningEvent(runningEvent1);
 
+        // Define lap 2
         Lap lap2 = new Lap();
         lap2.setLapNumber(2);
         lap2.setLapTime(LocalTime.of(0, 16, 17, 200000000));
         lap2.setAvgHeartRate(179);
         lap2.setMaxHeartRate(181);
         lap2.setEnergyBurned(new Energy(256.0, EnergyUnit.KILO_CALORIES));
+        lap2.setRunningEvent(runningEvent1);
 
+        // Define lap 3
         Lap lap3 = new Lap();
         lap3.setLapNumber(3);
-        lap3.setLapTime(LocalTime.of(0, 17, 28, 800000000));
+        lap3.setLapTime(LocalTime.of(0, 17, 28, 8));
         lap3.setAvgHeartRate(182);
         lap3.setMaxHeartRate(187);
         lap3.setEnergyBurned(new Energy(281.0, EnergyUnit.KILO_CALORIES));
+        lap3.setRunningEvent(runningEvent1);
 
 
-        Set<Lap> laps = new HashSet<>();
-        laps.add(lap1);
-        laps.add(lap2);
-        laps.add(lap3);
+        // Laps of event 2
+        // Define lap 1
+        System.out.println("New laps ...");
+        Lap lap21 = new Lap();
+        lap21.setLapNumber(1);
+        lap21.setLapTime(LocalTime.of(0, 16, 34, 0));
+        lap21.setAvgHeartRate(173);
+        lap21.setMaxHeartRate(177);
+        lap21.setEnergyBurned(new Energy(247.0, EnergyUnit.KILO_CALORIES));
+        lap21.setRunningEvent(runningEvent2);
 
-        System.out.println("New running event ...");
-        RunningEvent runningEvent = new RunningEvent();
-        runningEvent.setEventType(EventType.TRAINING);
-        runningEvent.setRoute(savedRoute);
-        runningEvent.setTemperatureCelsius(1.0);
-        runningEvent.setDate(LocalDate.of(2022, 12, 4));
-        runningEvent.setStartTime(LocalTime.of(10, 0));
-        runningEvent.setRemarks("very cold");
-        runningEvent.setLaps(laps);
+        // Define lap 2
+        Lap lap22 = new Lap();
+        lap22.setLapNumber(2);
+        lap22.setLapTime(LocalTime.of(0, 17, 36, 900000000));
+        lap22.setAvgHeartRate(173);
+        lap22.setMaxHeartRate(178);
+        lap22.setEnergyBurned(new Energy(265.0, EnergyUnit.KILO_CALORIES));
+        lap22.setRunningEvent(runningEvent2);
+
+        // Define lap 3
+        Lap lap23 = new Lap();
+        lap23.setLapNumber(3);
+        lap23.setLapTime(LocalTime.of(0, 17, 16, 4));
+        lap23.setAvgHeartRate(178);
+        lap23.setMaxHeartRate(184);
+        lap23.setEnergyBurned(new Energy(270.0, EnergyUnit.KILO_CALORIES));
+        lap23.setRunningEvent(runningEvent2);
 
 
-        System.out.println("Add running event to laps ...");
-        lap1.setRunningEvent(runningEvent);
-        lap2.setRunningEvent(runningEvent);
-        lap3.setRunningEvent(runningEvent);
+        runningEvent1.addLap(lap1).addLap(lap2).addLap(lap3);
+        runningEvent2.addLap(lap21).addLap(lap22).addLap(lap23);
+
+
+        System.out.println("Save running events ...");
+        runningEventService.save(runningEvent1);
+        runningEventService.save(runningEvent2);
+
 
         System.out.println("Save laps ...");
-//        Lap savedLap1 = lapService.save(lap1);
-//        Lap savedLap2 = lapService.save(lap2);
-//        Lap savedLap3 = lapService.save(lap3);
+        lapService.save(lap1);
+        lapService.save(lap2);
+        lapService.save(lap3);
+        lapService.save(lap21);
+        lapService.save(lap22);
+        lapService.save(lap23);
 
-        System.out.println("Save running event ...");
-//        RunningEvent savedRunningEvent = runningEventService.save(runningEvent);
+//        Set<Lap> laps = new HashSet<>();
+//        laps.add(savedLap1);
+//        laps.add(savedLap2);
+//        laps.add(savedLap3);
+
+
+        System.out.println("*********************");
+
+//        System.out.println(runningEventService.findAll());
+
 
 
     }

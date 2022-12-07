@@ -1,6 +1,7 @@
 package de.flozo.running.bootstrap;
 
 import de.flozo.running.model.*;
+import de.flozo.running.services.EnergyUnitService;
 import de.flozo.running.services.LapService;
 import de.flozo.running.services.RouteService;
 import de.flozo.running.services.RunningEventService;
@@ -16,11 +17,13 @@ public class DataLoader implements CommandLineRunner {
     private final LapService lapService;
     private final RouteService routeService;
     private final RunningEventService runningEventService;
+    private final EnergyUnitService energyUnitService;
 
-    public DataLoader(LapService lapService, RouteService routeService, RunningEventService runningEventService) {
+    public DataLoader(LapService lapService, RouteService routeService, RunningEventService runningEventService, EnergyUnitService energyUnitService) {
         this.lapService = lapService;
         this.routeService = routeService;
         this.runningEventService = runningEventService;
+        this.energyUnitService = energyUnitService;
     }
 
 
@@ -31,6 +34,19 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void loadData() {
+
+        // Define energy units
+
+        EnergyUnit kcal = new EnergyUnit();
+        kcal.setUnitName("kilocalories");
+        kcal.setUnitSymbol("kcal");
+
+        EnergyUnit kJoule = new EnergyUnit();
+        kJoule.setUnitName("kilojoule");
+        kJoule.setUnitSymbol("kJ");
+
+        EnergyUnit savedKcal = energyUnitService.save(kcal);
+        EnergyUnit savedKJoule = energyUnitService.save(kJoule);
 
 
         // Define route 1
@@ -89,7 +105,7 @@ public class DataLoader implements CommandLineRunner {
         lap1.setLapTime(LocalTime.of(0, 15, 29, 600000000));
         lap1.setAvgHeartRate(174);
         lap1.setMaxHeartRate(180);
-        lap1.setEnergyBurned(new Energy(233.0, EnergyUnit.KILO_CALORIES));
+        lap1.setEnergyBurned(new Energy(233.0, savedKcal));
         lap1.setRunningEvent(runningEvent1);
 
         // Define lap 2
@@ -98,7 +114,7 @@ public class DataLoader implements CommandLineRunner {
         lap2.setLapTime(LocalTime.of(0, 16, 17, 200000000));
         lap2.setAvgHeartRate(179);
         lap2.setMaxHeartRate(181);
-        lap2.setEnergyBurned(new Energy(256.0, EnergyUnit.KILO_CALORIES));
+        lap2.setEnergyBurned(new Energy(256.0, savedKcal));
         lap2.setRunningEvent(runningEvent1);
 
         // Define lap 3
@@ -107,7 +123,7 @@ public class DataLoader implements CommandLineRunner {
         lap3.setLapTime(LocalTime.of(0, 17, 28, 8));
         lap3.setAvgHeartRate(182);
         lap3.setMaxHeartRate(187);
-        lap3.setEnergyBurned(new Energy(281.0, EnergyUnit.KILO_CALORIES));
+        lap3.setEnergyBurned(new Energy(281.0, savedKcal));
         lap3.setRunningEvent(runningEvent1);
 
 
@@ -119,7 +135,7 @@ public class DataLoader implements CommandLineRunner {
         lap21.setLapTime(LocalTime.of(0, 16, 34, 0));
         lap21.setAvgHeartRate(173);
         lap21.setMaxHeartRate(177);
-        lap21.setEnergyBurned(new Energy(247.0, EnergyUnit.KILO_CALORIES));
+        lap21.setEnergyBurned(new Energy(247.0, savedKcal));
         lap21.setRunningEvent(runningEvent2);
 
         // Define lap 2
@@ -128,17 +144,22 @@ public class DataLoader implements CommandLineRunner {
         lap22.setLapTime(LocalTime.of(0, 17, 36, 900000000));
         lap22.setAvgHeartRate(173);
         lap22.setMaxHeartRate(178);
-        lap22.setEnergyBurned(new Energy(265.0, EnergyUnit.KILO_CALORIES));
+        lap22.setEnergyBurned(new Energy(265.0, savedKcal));
         lap22.setRunningEvent(runningEvent2);
 
+        Energy energy = new Energy(270.0, savedKcal);
+
+        System.out.println(energy);
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$");
         // Define lap 3
         Lap lap23 = new Lap();
         lap23.setLapNumber(3);
         lap23.setLapTime(LocalTime.of(0, 17, 16, 4));
         lap23.setAvgHeartRate(178);
         lap23.setMaxHeartRate(184);
-        lap23.setEnergyBurned(new Energy(270.0, EnergyUnit.KILO_CALORIES));
+        lap23.setEnergyBurned(energy);
         lap23.setRunningEvent(runningEvent2);
+
 
 
         runningEvent1.addLap(lap1).addLap(lap2).addLap(lap3);

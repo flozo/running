@@ -3,8 +3,8 @@ package de.flozo.running.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.*;
 
 @Getter
@@ -18,8 +18,8 @@ public class Energy {
     @Column(name = "energy_value")
     private Double value;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "energy_unit")
+    @OneToOne
+    @JoinColumn(name = "energy_unit_id")
     private EnergyUnit unit;
 
 

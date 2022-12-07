@@ -1,17 +1,24 @@
 package de.flozo.running.model;
 
-public enum EnergyUnit {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.*;
 
-    KILO_CALORIES("kcal"),
-    KILO_JOULE("kJ");
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Entity
+@Table(name = "energy_units")
+public class EnergyUnit extends BaseEntity {
 
+    @Column
+    private String unitName;
 
-    private final String unit;
+    @Column
+    private String unitSymbol;
 
-    EnergyUnit(String unit) {
-        this.unit = unit;
-    }
-
-    
 
 }

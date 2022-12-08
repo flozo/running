@@ -64,7 +64,7 @@
                                 <td><a href="#">Update</a></td>
                                 <td><a href="#">Delete</a></td>
                             </tr>
-                            <tr th:each="recipe : ${running_events}">
+                            <tr th:each="running_event : ${running_events}">
                                 <td th:text="${running_event.id}">125</td>
                                 <td th:text="${running_event.event_type}">Training</td>
                                 <td th:text="${running_event.route}">Training</td>

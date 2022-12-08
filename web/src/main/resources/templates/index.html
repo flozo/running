@@ -29,7 +29,17 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-header bg-primary bg-gradient text-light">
-                    <h5 class="card-title">My Running Events</h5>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h5 class="card-title">My Running Events</h5>
+                        </div>
+                        <div class="col-md-2 justify-content-right">
+                            <a class="btn btn-light" href="#"
+                               th:href="@{'/running_event/eventForm'}" role="button">Add event</a>
+                        </div>
+                    </div>
+
+
                 </div>
                 <div class="card-body">
                     <div class="table-responsive" th:if="${not #lists.isEmpty(running_events)}">

@@ -26,9 +26,9 @@
 
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-8 offset-md-2">
             <div class="card">
-                <div class="card-header bg-primary text-light">
+                <div class="card-header bg-primary bg-gradient text-light">
                     <h5 class="card-title">My Running Events</h5>
                 </div>
                 <div class="card-body">
@@ -40,6 +40,7 @@
                                 <th>ID</th>
                                 <th>Event Type</th>
                                 <th>Route</th>
+                                <th>Location</th>
                                 <th>Date</th>
                                 <th>View</th>
                                 <th>Update</th>
@@ -50,6 +51,7 @@
                                 <td>123</td>
                                 <td>Training</td>
                                 <td>Route 1</td>
+                                <td>Park</td>
                                 <td>2022-12-07</td>
                                 <td><a href="#">View</a></td>
                                 <td><a href="#">Update</a></td>
@@ -59,22 +61,24 @@
                                 <td>124</td>
                                 <td>Race</td>
                                 <td>Route 2</td>
+                                <td>Park</td>
                                 <td>2022-12-08</td>
                                 <td><a href="#">View</a></td>
                                 <td><a href="#">Update</a></td>
                                 <td><a href="#">Delete</a></td>
                             </tr>
                             <tr th:each="running_event : ${running_events}">
-                                <td th:text="${running_event.id}">125</td>
-                                <td th:text="${running_event.event_type}">Training</td>
-                                <td th:text="${running_event.route}">Training</td>
-                                <td th:text="${running_event.date}">Training</td>
-                                <td><a href="#" th:href="@{'/running_event/' + ${running_event.id} + '/show'}">View</a>
+                                <td th:text="${running_event.getId()}">125</td>
+                                <td th:text="${running_event.getEventType()}">Training</td>
+                                <td th:text="${running_event.getRoute().getName()}">Route name</td>
+                                <td th:text="${running_event.getRoute().getLocation()}">Route location</td>
+                                <td th:text="${running_event.getDate()}">Training</td>
+                                <td><a href="#" th:href="@{'/running_event/' + ${running_event.getId()} + '/show'}">View</a>
                                 </td>
                                 <td><a href="#"
-                                       th:href="@{'/running_event/' + ${running_event.id} + '/update'}">Update</a></td>
+                                       th:href="@{'/running_event/' + ${running_event.getId()} + '/update'}">Update</a></td>
                                 <td><a href="#"
-                                       th:href="@{'/running_event/' + ${running_event.id} + '/delete'}">Delete</a></td>
+                                       th:href="@{'/running_event/' + ${running_event.getId()} + '/delete'}">Delete</a></td>
                             </tr>
                         </table>
                     </div>

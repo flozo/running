@@ -26,10 +26,10 @@ public class EnergyUnitServiceImpl implements EnergyUnitService {
     }
 
     @Override
-    public EnergyUnit findById(Long aLong) {
-        Optional<EnergyUnit> energyUnitOptional = energyUnitRepository.findById(aLong);
+    public EnergyUnit findById(Long id) {
+        Optional<EnergyUnit> energyUnitOptional = energyUnitRepository.findById(id);
         if (energyUnitOptional.isEmpty()) {
-            throw new NotFoundException("Energy unit not found! Id value " + aLong + " not present!");
+            throw new NotFoundException("Energy unit not found! Id value " + id + " not present!");
         }
         return energyUnitOptional.get();
     }
@@ -45,7 +45,7 @@ public class EnergyUnitServiceImpl implements EnergyUnitService {
     }
 
     @Override
-    public void deleteById(Long aLong) {
-        energyUnitRepository.deleteById(aLong);
+    public void deleteById(Long id) {
+        energyUnitRepository.deleteById(id);
     }
 }

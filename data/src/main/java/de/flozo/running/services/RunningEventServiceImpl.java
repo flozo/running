@@ -28,10 +28,10 @@ public class RunningEventServiceImpl implements RunningEventService {
     }
 
     @Override
-    public RunningEvent findById(Long aLong) {
-        Optional<RunningEvent> runningEventOptional = runningEventRepository.findById(aLong);
+    public RunningEvent findById(Long id) {
+        Optional<RunningEvent> runningEventOptional = runningEventRepository.findById(id);
         if (runningEventOptional.isEmpty()) {
-            throw new NotFoundException("Running event not found! Id value " + aLong + " not present!");
+            throw new NotFoundException("Running event not found! Id value " + id + " not present!");
         }
         return runningEventOptional.get();
     }
@@ -52,7 +52,7 @@ public class RunningEventServiceImpl implements RunningEventService {
     }
 
     @Override
-    public void deleteById(Long aLong) {
-        runningEventRepository.deleteById(aLong);
+    public void deleteById(Long id) {
+        runningEventRepository.deleteById(id);
     }
 }

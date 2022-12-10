@@ -26,10 +26,10 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public Route findById(Long aLong) {
-        Optional<Route> routeOptional = routeRepository.findById(aLong);
+    public Route findById(Long id) {
+        Optional<Route> routeOptional = routeRepository.findById(id);
         if (routeOptional.isEmpty()) {
-            throw new NotFoundException("Route not found! Id value " + aLong + " not present!");
+            throw new NotFoundException("Route not found! Id value " + id + " not present!");
         }
         return routeOptional.get();
     }
@@ -45,8 +45,8 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public void deleteById(Long aLong) {
-        routeRepository.deleteById(aLong);
+    public void deleteById(Long id) {
+        routeRepository.deleteById(id);
     }
 
     @Override

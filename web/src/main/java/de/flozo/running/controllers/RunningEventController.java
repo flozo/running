@@ -26,4 +26,12 @@ public class RunningEventController {
         return "running_event/show";
     }
 
+    @GetMapping("/running_event/{id}/update")
+    public String updateRunningEvent(@PathVariable String id, Model model) {
+        model.addAttribute("running_event", runningEventService.findById(Long.valueOf(id)));
+        model.addAttribute("laps", lapService.findAllByRunningEventIdOrderByLapNumberAsc(Long.valueOf(id)));
+        return "running_event/runningEventForm";
+    }
+
+
 }

@@ -12,7 +12,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+//@ToString
 //@EqualsAndHashCode(callSuper = true)
 //@Data
 @Entity

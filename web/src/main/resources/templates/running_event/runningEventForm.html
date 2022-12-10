@@ -80,8 +80,6 @@
                                         <p th:if="${#fields.hasErrors('temperatureCelsius')}" th:errors="*{temperatureCelsius}"/>
                                     </div>
                                 </div>
-
-
                             </div>
 
                             <div class="row">
@@ -89,8 +87,8 @@
                                     <label>Route:</label>
                                     <select class="form-control" th:field="*{route}">
                                         <option th:each="route : ${routes}"
-                                                th:value="${(route.getName() + ' ' + route.getLocation() + ' ' + route.getTotalDistanceKilometers())}"
-                                                th:text="${(route.getName() + ' ' + route.getLocation() + ' ' + route.getTotalDistanceKilometers())}"
+                                                th:value="${route.getId()}"
+                                                th:text="${('ID ' + route.getId() + '  ||  ' + route.getName() + ' / ' + route.getLocation() + ' / ' + route.getTotalDistanceKilometers() + ' km')}"
                                         >event type
                                         </option>
                                     </select>

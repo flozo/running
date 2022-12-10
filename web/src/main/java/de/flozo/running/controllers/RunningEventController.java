@@ -1,6 +1,7 @@
 package de.flozo.running.controllers;
 
 import de.flozo.running.services.LapService;
+import de.flozo.running.services.RouteService;
 import de.flozo.running.services.RunningEventService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +13,12 @@ public class RunningEventController {
 
     private final RunningEventService runningEventService;
     private final LapService lapService;
+    private final RouteService routeService;
 
-    public RunningEventController(RunningEventService runningEventService, LapService lapService) {
+    public RunningEventController(RunningEventService runningEventService, LapService lapService, RouteService routeService) {
         this.runningEventService = runningEventService;
         this.lapService = lapService;
+        this.routeService = routeService;
     }
 
 
@@ -30,6 +33,7 @@ public class RunningEventController {
     public String updateRunningEvent(@PathVariable String id, Model model) {
         model.addAttribute("running_event", runningEventService.findById(Long.valueOf(id)));
         model.addAttribute("laps", lapService.findAllByRunningEventIdOrderByLapNumberAsc(Long.valueOf(id)));
+        model.addAttribute("routes", routeService.findAll());
         return "running_event/runningEventForm";
     }
 

@@ -138,7 +138,7 @@
                                     <th>Update</th>
                                     <th>Delete</th>
                                 </tr>
-                                <tr th:each="lap : ${running_event.laps}">
+                                <tr th:each="lap : ${laps}">
                                     <td th:text="${lap.getLapNumber()}">1</td>
                                     <td th:text="${lap.getLapTime()}">01:23:45</td>
                                     <td th:text="${lap.getAvgHeartRate()}">150</td>

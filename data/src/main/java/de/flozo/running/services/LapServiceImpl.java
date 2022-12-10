@@ -5,9 +5,7 @@ import de.flozo.running.model.Lap;
 import de.flozo.running.repositories.LapRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class LapServiceImpl implements LapService {
@@ -22,6 +20,13 @@ public class LapServiceImpl implements LapService {
     public Set<Lap> findAll() {
         Set<Lap> laps = new HashSet<>();
         lapRepository.findAll().iterator().forEachRemaining(laps::add);
+        return laps;
+    }
+
+    @Override
+    public List<Lap> findAllByRunningEventIdOrderByLapNumberAsc(Long id) {
+        List<Lap> laps = new ArrayList<>();
+        lapRepository.findAllByRunningEventIdOrderByLapNumberAsc(id).iterator().forEachRemaining(laps::add);
         return laps;
     }
 

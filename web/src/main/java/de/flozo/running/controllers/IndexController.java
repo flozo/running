@@ -16,7 +16,8 @@ public class IndexController {
 
     @RequestMapping({"", "/", "index", "index.html"})
     public String getIndexPage(Model model) {
-        model.addAttribute("running_events", runningEventService.findAll());
+//        model.addAttribute("running_events", runningEventService.findAll());
+        model.addAttribute("running_events", runningEventService.findAllByOrderByDateDesc());
         return "index";
     }
 }

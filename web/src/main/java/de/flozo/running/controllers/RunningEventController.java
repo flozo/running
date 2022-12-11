@@ -39,4 +39,11 @@ public class RunningEventController {
         return "running_event/runningEventForm";
     }
 
+    @GetMapping("/{id}/delete")
+    public String deleteById(@PathVariable String id) {
+        runningEventService.deleteById(Long.valueOf(id));
+        return "redirect:/";
+    }
+
+
 }

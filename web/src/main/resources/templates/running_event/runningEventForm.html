@@ -25,7 +25,7 @@
 <body>
 <div class="container-fluid" style="margin-top: 20px">
     <div class="justify-content-center">
-        <div class="col-md-8 offset-md-1">
+        <div class="col-md-8 offset-md-2">
             <form th:object="${running_event}" th:action="@{/running_event/}" method="post">
 
                 <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
@@ -65,8 +65,8 @@
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label for="startTime">Start time:</label>
-                                    <input id="startTime" type="text" class="form-control" th:errorclass="is-invalid"
-                                           th:field="*{startTime}" placeholder="start time"/>
+                                    <input id="startTime" type="time" class="form-control" th:errorclass="is-invalid"
+                                           th:field="*{startTime}" th:value="*{startTime}"/>
                                     <div class="invalid-feedback">
                                         <p th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}"/>
                                     </div>

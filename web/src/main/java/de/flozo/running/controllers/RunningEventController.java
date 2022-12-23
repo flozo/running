@@ -14,6 +14,8 @@ public class RunningEventController {
 
     public static final String REDIRECT = "redirect:/";
     public static final String RUNNING_EVENT = "running_event/";
+    public static final String RUNNING_EVENT_FORM = "runningEventForm";
+    public static final String SHOW = "show";
 
     private final RunningEventService runningEventService;
     private final LapService lapService;
@@ -36,16 +38,23 @@ public class RunningEventController {
     public String showById(@PathVariable String id, Model model) {
         model.addAttribute("running_event", runningEventService.findById(Long.valueOf(id)));
         model.addAttribute("laps", lapService.findAllByRunningEventIdOrderByLapNumberAsc(Long.valueOf(id)));
-        return RUNNING_EVENT + "show";
+        return RUNNING_EVENT + SHOW;
     }
+
+    @GetMapping("/new")
+    public String newRunningEvent(Model model) {
+        model.addAttribute("running_event", new RunningEvent());
+        model.addAttribute("routes", routeService.findAll());
+        return RUNNING_EVENT + RUNNING_EVENT_FORM;
+    }
+
 
     @GetMapping("/{id}/update")
     public String updateRunningEvent(@PathVariable String id, Model model) {
         model.addAttribute("running_event", runningEventService.findById(Long.valueOf(id)));
         model.addAttribute("laps", lapService.findAllByRunningEventIdOrderByLapNumberAsc(Long.valueOf(id)));
         model.addAttribute("routes", routeService.findAll());
-        System.out.println(RUNNING_EVENT + "runningEventForm");
-        return RUNNING_EVENT + "runningEventForm";
+        return RUNNING_EVENT + RUNNING_EVENT_FORM;
     }
 
     @PostMapping("/")
@@ -58,7 +67,7 @@ public class RunningEventController {
 //            return RUNNING_EVENT + "runningEventForm";
 //        }
         RunningEvent savedRunningEvent = runningEventService.save(runningEvent);
-        return REDIRECT + RUNNING_EVENT + savedRunningEvent.getId() + "/show";
+        return REDIRECT + RUNNING_EVENT + savedRunningEvent.getId() + "/" + SHOW;
     }
 
     @GetMapping("/{id}/delete")

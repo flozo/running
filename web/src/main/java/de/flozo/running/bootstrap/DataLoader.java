@@ -149,8 +149,6 @@ public class DataLoader implements CommandLineRunner {
 
         Energy energy = new Energy(270.0, savedKcal);
 
-        System.out.println(energy);
-        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$");
         // Define lap 3
         Lap lap23 = new Lap();
         lap23.setLapNumber(3);
@@ -185,7 +183,6 @@ public class DataLoader implements CommandLineRunner {
 //        laps.add(savedLap3);
 
 
-        System.out.println("*********************");
 
 //        System.out.println(runningEventService.findAll());
 

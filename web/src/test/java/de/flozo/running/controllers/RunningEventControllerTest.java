@@ -9,6 +9,7 @@ import de.flozo.running.services.RunningEventService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,6 +23,7 @@ import java.util.Set;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -89,6 +91,21 @@ class RunningEventControllerTest {
                 .andExpect(model().attributeExists("running_event"))
                 .andExpect(model().attributeExists("laps"))
                 .andExpect(model().attributeExists("routes"));
+    }
+
+    @Test
+    void processUpdateRunningEventForm() throws Exception {
+        RunningEvent runningEvent = new RunningEvent();
+        runningEvent.setId(1L);
+        when(runningEventService.save(ArgumentMatchers.any())).thenReturn(runningEvent);
+
+        mockMvc.perform(post("/running_event/"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/running_event/1/show"));
+//                .andExpect(model().attributeExists("running_event"));
+
+        verify(runningEventService).save(ArgumentMatchers.any());
+
     }
 
     @Test

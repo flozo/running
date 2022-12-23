@@ -1,7 +1,11 @@
 package de.flozo.running.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -26,6 +30,7 @@ public class RunningEvent extends BaseEntity {
     @JoinColumn(name = "route_id")
     private Route route;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column
     private LocalDate date;
 

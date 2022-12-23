@@ -25,7 +25,7 @@
 <body>
 <div class="container-fluid" style="margin-top: 20px">
     <div class="justify-content-center">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-8 offset-md-1">
             <form th:object="${running_event}" th:action="@{/running_event/}" method="post">
 
                 <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
@@ -57,8 +57,8 @@
 
                                 <div class="col-md-3 form-group">
                                     <label for="date">Date:</label>
-                                    <input id="date" type="text" class="form-control" th:errorclass="is-invalid"
-                                           th:field="*{date}" placeholder="date"/>
+                                    <input id="date" type="date" class="form-control" th:errorclass="is-invalid"
+                                           th:field="*{date}" th:value="*{date}"/>
                                     <div class="invalid-feedback">
                                         <p th:if="${#fields.hasErrors('date')}" th:errors="*{date}"/>
                                     </div>

@@ -24,7 +24,7 @@
 <div class="container-fluid" style="margin-top: 20px">
   <div class="justify-content-center">
     <div class="col-md-8 offset-md-2">
-      <form th:object="${lap}" th:action="@{/lap/}" method="post">
+      <form th:object="${lap}" th:action="@{/running_event/{runningEventId}/lap/(runningEventId=${lap.getRunningEvent().getId()})}" method="post">
 
         <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
           <p>Please Correct Errors Below</p>
@@ -78,13 +78,22 @@
                 <div class="col-md-3 form-group">
                   <label for="energyBurned">Energy burned:</label>
                   <input id="energyBurned" type="text" class="form-control" th:errorclass="is-invalid"
-                         th:field="*{energyBurned}" placeholder="energy burned"/>
+                         th:field="*{energyBurned.value}" placeholder="energy burned"/>
                   <div class="invalid-feedback">
                     <p th:if="${#fields.hasErrors('energyBurned')}" th:errors="*{energyBurned}"/>
                   </div>
                 </div>
-
-              </div>
+                  <div class="col-md-3 form-group">
+                    <label for="energyBurned">unit</label>
+                  <select class="form-control">
+                    <option th:each="unit : ${energyUnit}"
+                            th:value="${unit.getId()}"
+                            th:text="@{{unitName} ({unitSymbol})(unitName=${unit.getUnitName()}, unitSymbol=${unit.getUnitSymbol()})}"
+                    >energyUnit
+                    </option>
+                  </select>
+                  </div>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>

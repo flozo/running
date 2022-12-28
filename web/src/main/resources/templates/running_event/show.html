@@ -75,7 +75,7 @@
                             </div>
                             <div class="col-md-2">
                                 <a class="btn btn-light" href="#"
-                                   th:href="@{'/running_event/' + ${running_event.getId()} + '/laps'}" role="button">View route</a>
+                                   th:href="@{/running_event/{runningEventId}/laps(runningEventId=${running_event.getId()})}" role="button">View route</a>
                             </div>
                         </div>
                     </div>
@@ -119,7 +119,7 @@
                             </div>
                             <div class="col-md-2">
                                 <a class="btn btn-light" href="#"
-                                   th:href="@{'/running_event/' + ${running_event.getId()} + '/laps'}" role="button">Add lap</a>
+                                   th:href="@{/running_event/{runningEventId}/lap/new(runningEventId=${running_event.getId()})}" role="button">Add lap</a>
                             </div>
                         </div>
                     </div>

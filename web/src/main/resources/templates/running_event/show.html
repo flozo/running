@@ -145,10 +145,10 @@
                                         200 kJ
                                     </td>
                                     <td><a href="#"
-                                           th:href="@{'/running_event/' + ${running_event.getId()} + '/update'}">Update</a>
+                                           th:href="@{/running_event/{runningEventId}/lap/{lapId}/update(runningEventId=${running_event.getId()}, lapId=${lap.getId()})}">Update</a>
                                     </td>
                                     <td><a href="#"
-                                           th:href="@{'/running_event/' + ${running_event.getId()} + '/delete'}">Delete</a>
+                                           th:href="@{/running_event/{runningEventId}/lap/{lapId}/delete(runningEventId=${running_event.getId()}, lapId=${lap.getId()})}">Delete</a>
                                     </td>
                                 </tr>
                             </table>

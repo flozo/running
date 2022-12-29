@@ -41,8 +41,16 @@ public class LapController {
         return LAP + LAP_FORM;
     }
 
+    @GetMapping("/{runningEventId}/lap/{lapId}/update")
+    public String updateLap(@PathVariable Long runningEventId, @PathVariable Long lapId, Model model) {
+        model.addAttribute("lap", lapService.findById(lapId));
+        model.addAttribute("energyUnit", energyUnitService.findAll());
+        return LAP + LAP_FORM;
+    }
+
+
     @PostMapping("/{runningEventId}/lap/")
-    public String processUpdateRunningEventForm(@PathVariable Long runningEventId, @ModelAttribute Lap lap, @ModelAttribute EnergyUnit energyUnit) {
+    public String processUpdateLapForm(@PathVariable Long runningEventId, @ModelAttribute Lap lap, @ModelAttribute EnergyUnit energyUnit) {
         RunningEvent runningEvent = runningEventService.findById(runningEventId);
         lap.setRunningEvent(runningEvent);
         EnergyUnit savedEnergyUnit = energyUnitService.save(energyUnit);

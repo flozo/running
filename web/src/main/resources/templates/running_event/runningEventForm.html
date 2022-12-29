@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label for="startTime">Start time:</label>
-                                    <input id="startTime" type="time" class="form-control" th:errorclass="is-invalid"
+                                    <input id="startTime" type="time" step="1" class="form-control" th:errorclass="is-invalid"
                                            th:field="*{startTime}" th:value="*{startTime}"/>
                                     <div class="invalid-feedback">
                                         <p th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}"/>

@@ -85,9 +85,10 @@
                 </div>
                   <div class="col-md-3 form-group">
                     <label for="energyBurned">unit</label>
-                  <select class="form-control">
-                    <option th:each="unit : ${energyUnit}"
+                  <select class="form-control" th:field="*{energyBurned.unit.id}">
+                    <option th:each="unit : ${energyUnits}"
                             th:value="${unit.getId()}"
+                            th:selected="${unit.getId().equals(lap.getEnergyBurned().getUnit().getId())}"
                             th:text="@{{unitName} ({unitSymbol})(unitName=${unit.getUnitName()}, unitSymbol=${unit.getUnitSymbol()})}"
                     >energyUnit
                     </option>

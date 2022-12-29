@@ -36,28 +36,27 @@ public class LapController {
     public String newLap(@PathVariable Long runningEventId, Model model) {
         Lap lap = new Lap();
         lap.setRunningEvent(runningEventService.findById(runningEventId));
+        EnergyUnit defaultUnit = energyUnitService.findById(1L);
+        Energy defaultEnergy = new Energy();
+        defaultEnergy.setUnit(defaultUnit);
+        lap.setEnergyBurned(defaultEnergy);
         model.addAttribute("lap", lap);
-        model.addAttribute("energyUnit", energyUnitService.findAll());
+        model.addAttribute("energyUnits", energyUnitService.findAll());
         return LAP + LAP_FORM;
     }
 
     @GetMapping("/{runningEventId}/lap/{lapId}/update")
     public String updateLap(@PathVariable Long runningEventId, @PathVariable Long lapId, Model model) {
         model.addAttribute("lap", lapService.findById(lapId));
-        model.addAttribute("energyUnit", energyUnitService.findAll());
+        model.addAttribute("energyUnits", energyUnitService.findAll());
         return LAP + LAP_FORM;
     }
 
 
     @PostMapping("/{runningEventId}/lap/")
-    public String processUpdateLapForm(@PathVariable Long runningEventId, @ModelAttribute Lap lap, @ModelAttribute EnergyUnit energyUnit) {
+    public String processUpdateLapForm(@PathVariable Long runningEventId, @ModelAttribute Lap lap) {
         RunningEvent runningEvent = runningEventService.findById(runningEventId);
         lap.setRunningEvent(runningEvent);
-        EnergyUnit savedEnergyUnit = energyUnitService.save(energyUnit);
-        Energy energy = new Energy();
-        energy.setValue(lap.getEnergyBurned().getValue());
-        energy.setUnit(savedEnergyUnit);
-        lap.setEnergyBurned(energy);
         Lap savedLap = lapService.save(lap);
         runningEvent.addLap(savedLap);
         RunningEvent savedRunningEvent = runningEventService.save(runningEvent);

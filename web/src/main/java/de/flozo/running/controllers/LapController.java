@@ -19,7 +19,7 @@ public class LapController {
     public static final String RUNNING_EVENT = "running_event/";
     public static final String LAP = "lap/";
     public static final String LAP_FORM = "lapForm";
-    public static final String SHOW = "show";
+    public static final String SHOW = "/show";
 
     private final LapService lapService;
     private final RunningEventService runningEventService;
@@ -61,7 +61,13 @@ public class LapController {
         Lap savedLap = lapService.save(lap);
         runningEvent.addLap(savedLap);
         RunningEvent savedRunningEvent = runningEventService.save(runningEvent);
-        return REDIRECT + RUNNING_EVENT + savedRunningEvent.getId() + "/" + SHOW;
+        return REDIRECT + RUNNING_EVENT + savedRunningEvent.getId() + SHOW;
+    }
+
+    @GetMapping("/{runningEventId}/lap/{lapId}/delete")
+    public String deleteLap(@PathVariable Long runningEventId, @PathVariable Long lapId) {
+        lapService.deleteById(lapId);
+        return REDIRECT + RUNNING_EVENT + runningEventId + SHOW;
     }
 
 }

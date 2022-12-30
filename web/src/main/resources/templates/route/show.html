@@ -24,7 +24,7 @@
 
 <div class="container-fluid" style="margin-top: 10px">
     <div class="row">
-        <div class="col-md-8 offset-md-2">
+        <div class="col-md-9 offset-md-1">
             <div class="card">
                 <div class="card-header bg-primary bg-gradient text-light">
                     <div class="row">
@@ -36,8 +36,6 @@
                                th:href="@{'/route/new'}" role="button">Add route</a>
                         </div>
                     </div>
-
-
                 </div>
                 <div class="card-body">
                     <div class="table-responsive" th:if="${not #lists.isEmpty(routes)}">
@@ -48,9 +46,11 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Location</th>
-                                <th>Total distance (km)</th>
-                                <th>Number of laps</th>
+                                <th>Distance (km)</th>
+                                <th>Laps</th>
                                 <th>Running events</th>
+                                <th>Update</th>
+                                <th>Delete</th>
                             </tr>
                             </thead>
                             <tr th:remove="all">
@@ -70,9 +70,9 @@
                                 <td th:text="${route.getNumberOfLaps()}">5</td>
                                 <td th:text="${route.getRunningEvents().stream().count()}">7</td>
                                 <td><a href="#"
-                                       th:href="@{'/running_event/' + ${running_event.getId()} + '/update'}">Update</a></td>
+                                       th:href="@{/route/{routeId}/update(routeId=${route.getId()})}">Update</a></td>
                                 <td><a href="#"
-                                       th:href="@{'/running_event/' + ${running_event.getId()} + '/delete'}">Delete</a></td>
+                                       th:href="@{/route/{routeId}/delete(routeId=${route.getId()})}">Delete</a></td>
                             </tr>
                         </table>
                     </div>

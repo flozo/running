@@ -76,5 +76,4 @@ public class RunningEventController {
         return REDIRECT;
     }
 
-
 }

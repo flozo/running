@@ -58,6 +58,6 @@ public class RunningEventServiceImpl implements RunningEventService {
 
     @Override
     public Long countRunningEventsByRouteId(Long id) {
-        return runningEventRepository.countRunningEventsByRouteId(id);
+        return runningEventRepository.countByRouteId(id);
     }
 }

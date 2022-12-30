@@ -59,13 +59,6 @@ public class RunningEventController {
 
     @PostMapping("/")
     public String processUpdateRunningEventForm(@ModelAttribute RunningEvent runningEvent) {
-//        if (bindingResult.hasErrors()) {
-//            bindingResult.getAllErrors().forEach(objectError ->
-//                    log.debug(objectError.toString())
-//            );
-//            System.out.println("************************");
-//            return RUNNING_EVENT + "runningEventForm";
-//        }
         RunningEvent savedRunningEvent = runningEventService.save(runningEvent);
         return REDIRECT + RUNNING_EVENT + savedRunningEvent.getId() + "/" + SHOW;
     }

@@ -1,12 +1,11 @@
 package de.flozo.running.controllers;
 
+import de.flozo.running.model.Route;
 import de.flozo.running.services.RouteService;
 import de.flozo.running.services.RunningEventService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("route")
 @Controller
@@ -14,7 +13,7 @@ public class RouteController {
 
     public static final String REDIRECT = "redirect:/";
     public static final String ROUTE = "route/";
-    //    public static final String RUNNING_EVENT_FORM = "runningEventForm";
+    public static final String ROUTE_FORM = "routeForm";
     public static final String SHOW = "show";
 
 
@@ -32,6 +31,18 @@ public class RouteController {
         return ROUTE + SHOW;
     }
 
+    @GetMapping("/{id}/update")
+    public String createOrUpdate(@PathVariable Long id, Model model) {
+        model.addAttribute("route", routeService.findById(id));
+        return ROUTE + ROUTE_FORM;
+    }
+
+    @PostMapping("/")
+    public String processRouteForm(@ModelAttribute Route route) {
+        Route savedRoute = routeService.save(route);
+//        return REDIRECT + ROUTE + savedRoute.getId() + "/" + SHOW;
+        return REDIRECT + ROUTE + SHOW;
+    }
 
     @GetMapping("/{id}/delete")
     public String deleteById(@PathVariable Long id) {

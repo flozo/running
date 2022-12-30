@@ -55,4 +55,9 @@ public class RunningEventServiceImpl implements RunningEventService {
     public void deleteById(Long id) {
         runningEventRepository.deleteById(id);
     }
+
+    @Override
+    public Long countRunningEventsByRouteId(Long id) {
+        return runningEventRepository.countRunningEventsByRouteId(id);
+    }
 }

@@ -1,6 +1,7 @@
 package de.flozo.running.controllers;
 
 import de.flozo.running.services.RouteService;
+import de.flozo.running.services.RunningEventService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +19,11 @@ public class RouteController {
 
 
     private final RouteService routeService;
+    private final RunningEventService runningEventService;
 
-    public RouteController(RouteService routeService) {
+    public RouteController(RouteService routeService, RunningEventService runningEventService) {
         this.routeService = routeService;
+        this.runningEventService = runningEventService;
     }
 
     @GetMapping("/show")
@@ -31,8 +34,13 @@ public class RouteController {
 
 
     @GetMapping("/{id}/delete")
-    public String deleteById(@PathVariable String id) {
-        routeService.deleteById(Long.valueOf(id));
+    public String deleteById(@PathVariable Long id) {
+        Long count = runningEventService.countRunningEventsByRouteId(id);
+        if (count == 0) {
+            routeService.deleteById(id);
+        } else {
+            System.out.println("Can't delete route with id " + id + ". It is used by " + count + " running events!");
+        }
         return REDIRECT + ROUTE + SHOW;
     }
 

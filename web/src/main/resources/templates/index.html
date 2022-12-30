@@ -28,12 +28,16 @@
             <div class="card">
                 <div class="card-header bg-primary bg-gradient text-light">
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-7">
                             <h5 class="card-title">My Running Events</h5>
+                        </div>
+                        <div class="col-md-3 justify-content-right">
+                            <a class="btn btn-light" href="#"
+                               th:href="@{/route/new}" role="button">Show routes</a>
                         </div>
                         <div class="col-md-2 justify-content-right">
                             <a class="btn btn-light" href="#"
-                               th:href="@{'/running_event/new'}" role="button">Add event</a>
+                               th:href="@{/running_event/new}" role="button">Add event</a>
                         </div>
                     </div>
 
@@ -81,12 +85,15 @@
                                 <td th:text="${running_event.getRoute().getName()}">Route name</td>
                                 <td th:text="${running_event.getRoute().getLocation()}">Route location</td>
                                 <td th:text="${running_event.getDate()}">Training</td>
-                                <td><a href="#" th:href="@{'/running_event/' + ${running_event.getId()} + '/show'}">View</a>
+                                <td><a href="#"
+                                       th:href="@{'/running_event/' + ${running_event.getId()} + '/show'}">View</a>
                                 </td>
                                 <td><a href="#"
-                                       th:href="@{'/running_event/' + ${running_event.getId()} + '/update'}">Update</a></td>
+                                       th:href="@{'/running_event/' + ${running_event.getId()} + '/update'}">Update</a>
+                                </td>
                                 <td><a href="#"
-                                       th:href="@{'/running_event/' + ${running_event.getId()} + '/delete'}">Delete</a></td>
+                                       th:href="@{'/running_event/' + ${running_event.getId()} + '/delete'}">Delete</a>
+                                </td>
                             </tr>
                         </table>
                     </div>

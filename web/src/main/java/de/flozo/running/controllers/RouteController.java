@@ -31,6 +31,13 @@ public class RouteController {
         return ROUTE + SHOW;
     }
 
+    @GetMapping("/new")
+    public String newRoute(Model model) {
+        model.addAttribute("route", new Route());
+        return ROUTE + ROUTE_FORM;
+    }
+
+
     @GetMapping("/{id}/update")
     public String createOrUpdate(@PathVariable Long id, Model model) {
         model.addAttribute("route", routeService.findById(id));

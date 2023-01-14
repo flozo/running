@@ -6,12 +6,14 @@ import de.flozo.running.services.LapService;
 import de.flozo.running.services.RouteService;
 import de.flozo.running.services.RunningEventService;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Component
+@Profile("default")
 public class DataLoader implements CommandLineRunner {
 
     private final LapService lapService;

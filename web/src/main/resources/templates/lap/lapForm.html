@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="col-md-3 form-group">
-                  <label for="lapTime">Lap time:</label>
+                  <label for="lapTime">Lap time (hh:mm:ss):</label>
                   <input id="lapTime" type="time" step="1" class="form-control" th:errorclass="is-invalid"
                          th:field="*{lapTime}" th:value="*{lapTime}"/>
                   <div class="invalid-feedback">
@@ -62,7 +62,7 @@
                 <div class="col-md-3 form-group">
                   <label for="avgHeartRate">Average heart rate:</label>
                   <input id="avgHeartRate" type="text" class="form-control" th:errorclass="is-invalid"
-                         th:field="*{avgHeartRate}" placeholder="avg heart rate"/>
+                         th:field="*{avgHeartRate}" placeholder="bpm"/>
                   <div class="invalid-feedback">
                     <p th:if="${#fields.hasErrors('avgHeartRate')}" th:errors="*{avgHeartRate}"/>
                   </div>
@@ -70,7 +70,7 @@
                 <div class="col-md-3 form-group">
                   <label for="maxHeartRate">Maximum heart rate:</label>
                   <input id="maxHeartRate" type="text" class="form-control" th:errorclass="is-invalid"
-                         th:field="*{maxHeartRate}" placeholder="max heart rate"/>
+                         th:field="*{maxHeartRate}" placeholder="bpm"/>
                   <div class="invalid-feedback">
                     <p th:if="${#fields.hasErrors('maxHeartRate')}" th:errors="*{maxHeartRate}"/>
                   </div>

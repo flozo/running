@@ -48,8 +48,8 @@
                 </div>
 
                 <div class="col-md-3 form-group">
-                  <label for="lapTime">Lap time (hh:mm:ss):</label>
-                  <input id="lapTime" type="time" step="1" class="form-control" th:errorclass="is-invalid"
+                  <label for="lapTime">Lap time (hh:mm:ss.SS):</label>
+                  <input id="lapTime" type="time" step="0.001" class="form-control" th:errorclass="is-invalid"
                          th:field="*{lapTime}" th:value="*{lapTime}"/>
                   <div class="invalid-feedback">
                     <p th:if="${#fields.hasErrors('lapTime')}" th:errors="*{lapTime}"/>

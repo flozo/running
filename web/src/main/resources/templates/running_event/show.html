@@ -125,7 +125,7 @@
                                 <thead class="thead-inverse">
                                 <tr>
                                     <th>Lap number</th>
-                                    <th>Lap time (hh:mm:ss)</th>
+                                    <th>Lap time (hh:mm:ss.SS)</th>
                                     <th>Avg heart rate (bpm)</th>
                                     <th>Max heart rate (bpm)</th>
                                     <th>Energy burned</th>
@@ -134,7 +134,7 @@
                                 </tr>
                                 <tr th:each="lap : ${laps}">
                                     <td th:text="${lap.getLapNumber()}">1</td>
-                                    <td th:text="${lap.getLapTime()}">01:23:45</td>
+                                    <td th:text="${#temporals.format(lap.getLapTime(), 'HH:mm:ss.SSS')}">01:23:45.670</td>
                                     <td th:text="${lap.getAvgHeartRate()}">150</td>
                                     <td th:text="${lap.getMaxHeartRate()}">160</td>
                                     <td th:text="${lap.getEnergyBurned().getValue() + ' ' + lap.getEnergyBurned().getUnit().getUnitSymbol()}">

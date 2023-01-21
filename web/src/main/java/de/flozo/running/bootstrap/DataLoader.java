@@ -122,7 +122,7 @@ public class DataLoader implements CommandLineRunner {
         // Define lap 3
         Lap lap3 = new Lap();
         lap3.setLapNumber(3);
-        lap3.setLapTime(LocalTime.of(0, 17, 28, 8));
+        lap3.setLapTime(LocalTime.of(0, 17, 28, 800000000));
         lap3.setAvgHeartRate(182);
         lap3.setMaxHeartRate(187);
         lap3.setEnergyBurned(new Energy(281.0, savedKcal));
@@ -154,7 +154,7 @@ public class DataLoader implements CommandLineRunner {
         // Define lap 3
         Lap lap23 = new Lap();
         lap23.setLapNumber(3);
-        lap23.setLapTime(LocalTime.of(0, 17, 16, 4));
+        lap23.setLapTime(LocalTime.of(0, 17, 16, 400000000));
         lap23.setAvgHeartRate(178);
         lap23.setMaxHeartRate(184);
         lap23.setEnergyBurned(energy);
@@ -185,6 +185,9 @@ public class DataLoader implements CommandLineRunner {
 //        laps.add(savedLap3);
 
 
+        System.out.println(lap1.getLapTime());
+        System.out.println(lap2.getLapTime());
+        System.out.println(lap3.getLapTime());
 
 //        System.out.println(runningEventService.findAll());
 

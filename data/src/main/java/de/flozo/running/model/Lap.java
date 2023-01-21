@@ -20,8 +20,9 @@ public class Lap extends BaseEntity {
     @Column
     private Integer lapNumber;
 
-    @DateTimeFormat(pattern = "HH:mm:ss")
-    @Column
+//    @Temporal(TemporalType.TIME)
+    @Column(columnDefinition = "TIME(3)")
+    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
     private LocalTime lapTime;
 
     @Column(name = "average_heart_rate")

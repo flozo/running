@@ -31,10 +31,10 @@ public class LapServiceImpl implements LapService {
     }
 
     @Override
-    public Lap findById(Long aLong) {
-        Optional<Lap> lapOptional = lapRepository.findById(aLong);
+    public Lap findById(Long id) {
+        Optional<Lap> lapOptional = lapRepository.findById(id);
         if (lapOptional.isEmpty()) {
-            throw new NotFoundException("Lap not found! Id value " + aLong + " not present!");
+            throw new NotFoundException("Lap not found! Id value " + id + " not present!");
         }
         return lapOptional.get();
     }
@@ -50,7 +50,7 @@ public class LapServiceImpl implements LapService {
     }
 
     @Override
-    public void deleteById(Long aLong) {
-        lapRepository.deleteById(aLong);
+    public void deleteById(Long id) {
+        lapRepository.deleteById(id);
     }
 }

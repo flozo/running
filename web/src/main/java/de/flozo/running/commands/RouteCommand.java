@@ -18,5 +18,5 @@ public class RouteCommand {
     @Min(0)
     @Max(1000)
     private Integer numberOfLaps;
-    
+
 }

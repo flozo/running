@@ -23,4 +23,5 @@ public class RunningEventCommand {
     private Long routeId;
 
     private String remarks;
+
 }

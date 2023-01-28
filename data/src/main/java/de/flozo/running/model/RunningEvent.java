@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ import java.util.Set;
 //@ToString
 //@EqualsAndHashCode(callSuper = true)
 //@Data
+@SuperBuilder
 @Entity
 //@Table(name = "running_events")
 public class RunningEvent extends BaseEntity {

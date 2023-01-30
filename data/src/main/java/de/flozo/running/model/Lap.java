@@ -3,9 +3,6 @@ package de.flozo.running.model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -23,10 +20,12 @@ public class Lap extends BaseEntity {
     private Integer lapNumber;
 
 //    @Temporal(TemporalType.TIME)
-    @Column(columnDefinition = "TIME(3)")
-    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
-    private LocalTime lapTime;
-
+//    @Column(columnDefinition = "TIME(3)")
+//    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
+//    private LocalTime lapTime;
+    @Column(name = "lap_time_milliseconds")
+    private Long lapTime;
+    
     @Column(name = "average_heart_rate")
     private Integer avgHeartRate;
 

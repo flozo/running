@@ -5,13 +5,18 @@ import de.flozo.running.model.Lap;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.time.LocalTime;
+import java.time.ZoneId;
 
 @Component
 public class LapToLapCommandConverter implements Converter<Lap, LapCommand> {
 
-    private LocalTime longToTime(Long milliseconds) {
-        return LocalTime.ofNanoOfDay(milliseconds * 1000);
+    public LocalTime longToTime(Long milliseconds) {
+        if (milliseconds == null) {
+            return null;
+        }
+        return Instant.ofEpochMilli(milliseconds).atZone(ZoneId.of("UTC")).toLocalTime();
     }
 
 

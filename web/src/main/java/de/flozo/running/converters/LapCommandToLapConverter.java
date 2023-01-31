@@ -9,14 +9,21 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
-import java.time.temporal.ChronoField;
 
 @Component
 public class LapCommandToLapConverter implements Converter<LapCommand, Lap> {
 
-    private Long timeToLong(LocalTime time) {
-        return time.getLong(ChronoField.MILLI_OF_DAY);
+    public Long timeToMilliseconds(LocalTime time) {
+        if (time == null) {
+            return null;
+        }
+        int h = time.getHour();
+        int m = time.getMinute();
+        int s = time.getSecond();
+        int ns = time.getNano();
+        return (long) (ns / 1000000 + s * 1000 + m * 60000 + h * 3600000);
     }
+
 
     @Override
     public Lap convert(LapCommand source) {
@@ -34,7 +41,7 @@ public class LapCommandToLapConverter implements Converter<LapCommand, Lap> {
         return Lap.builder()
                 .id(source.getId())
                 .lapNumber(source.getLapNumber())
-                .lapTime(timeToLong(source.getLapTime()))
+                .lapTime(timeToMilliseconds(source.getLapTime()))
                 .avgHeartRate(source.getAvgHeartRate())
                 .maxHeartRate(source.getMaxHeartRate())
                 .energyBurned(energy)

@@ -1,5 +1,6 @@
 package de.flozo.running.controllers;
 
+import de.flozo.running.converters.LapToLapCommandConverter;
 import de.flozo.running.model.Lap;
 import de.flozo.running.model.Route;
 import de.flozo.running.model.RunningEvent;
@@ -38,13 +39,16 @@ class RunningEventControllerTest {
     @Mock
     RouteService routeService;
 
+    @Mock
+    LapToLapCommandConverter lapToLapCommandConverter;
+
     RunningEventController runningEventController;
 
     MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
-        runningEventController = new RunningEventController(runningEventService, lapService, routeService);
+        runningEventController = new RunningEventController(runningEventService, lapService, routeService, lapToLapCommandConverter);
         mockMvc = MockMvcBuilders.standaloneSetup(runningEventController).build();
     }
 

@@ -1,6 +1,8 @@
 package de.flozo.running.controllers;
 
 import de.flozo.running.commands.LapCommand;
+import de.flozo.running.converters.LapCommandToLapConverter;
+import de.flozo.running.converters.LapToLapCommandConverter;
 import de.flozo.running.model.Energy;
 import de.flozo.running.model.EnergyUnit;
 import de.flozo.running.model.Lap;
@@ -8,8 +10,10 @@ import de.flozo.running.model.RunningEvent;
 import de.flozo.running.services.EnergyUnitService;
 import de.flozo.running.services.LapService;
 import de.flozo.running.services.RunningEventService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("running_event")
@@ -25,12 +29,16 @@ public class LapController {
     private final LapService lapService;
     private final RunningEventService runningEventService;
     private final EnergyUnitService energyUnitService;
+    private final LapToLapCommandConverter lapToLapCommandConverter;
+    private final LapCommandToLapConverter lapCommandToLapConverter;
 
 
-    public LapController(LapService lapService, RunningEventService runningEventService, EnergyUnitService energyUnitService) {
+    public LapController(LapService lapService, RunningEventService runningEventService, EnergyUnitService energyUnitService, LapToLapCommandConverter lapToLapCommandConverter, LapCommandToLapConverter lapCommandToLapConverter) {
         this.lapService = lapService;
         this.runningEventService = runningEventService;
         this.energyUnitService = energyUnitService;
+        this.lapToLapCommandConverter = lapToLapCommandConverter;
+        this.lapCommandToLapConverter = lapCommandToLapConverter;
     }
 
     @GetMapping("/{runningEventId}/lap/new")
@@ -58,16 +66,23 @@ public class LapController {
 
     @GetMapping("/{runningEventId}/lap/{lapId}/update")
     public String updateLap(@PathVariable Long runningEventId, @PathVariable Long lapId, Model model) {
-        model.addAttribute("lap", lapService.findById(lapId));
+        LapCommand lapCommand = lapToLapCommandConverter.convert(lapService.findById(lapId));
+        model.addAttribute("lapCommand", lapCommand);
         model.addAttribute("energyUnits", energyUnitService.findAll());
         return LAP + LAP_FORM;
     }
 
 
     @PostMapping("/{runningEventId}/lap/")
-    public String processUpdateLapForm(@PathVariable Long runningEventId, @ModelAttribute Lap lap) {
+    public String processUpdateLapForm(@PathVariable Long runningEventId, @Valid @ModelAttribute("lapCommand") LapCommand lapCommand,
+                                       BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(System.out::println);
+            return LAP + LAP_FORM;
+        }
         RunningEvent runningEvent = runningEventService.findById(runningEventId);
-        lap.setRunningEvent(runningEvent);
+        Lap lap = lapCommandToLapConverter.convert(lapCommand);
+//        lap.setRunningEvent(runningEvent);
         Lap savedLap = lapService.save(lap);
         runningEvent.addLap(savedLap);
         RunningEvent savedRunningEvent = runningEventService.save(runningEvent);

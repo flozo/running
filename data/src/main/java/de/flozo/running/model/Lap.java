@@ -25,7 +25,7 @@ public class Lap extends BaseEntity {
 //    private LocalTime lapTime;
     @Column(name = "lap_time_milliseconds")
     private Long lapTime;
-    
+
     @Column(name = "average_heart_rate")
     private Integer avgHeartRate;
 

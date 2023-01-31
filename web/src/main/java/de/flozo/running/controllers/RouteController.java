@@ -60,7 +60,6 @@ public class RouteController {
             bindingResult.getAllErrors().forEach(System.out::println);
             return ROUTE + ROUTE_FORM;
         }
-        System.out.println(routeCommand);
         Route route = routeCommandToRouteConverter.convert(routeCommand);
         Route savedRoute = routeService.save(route);
         return REDIRECT + ROUTE + SHOW;

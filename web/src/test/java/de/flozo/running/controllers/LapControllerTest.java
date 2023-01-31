@@ -1,5 +1,7 @@
 package de.flozo.running.controllers;
 
+import de.flozo.running.converters.LapCommandToLapConverter;
+import de.flozo.running.converters.LapToLapCommandConverter;
 import de.flozo.running.model.EnergyUnit;
 import de.flozo.running.model.Lap;
 import de.flozo.running.model.RunningEvent;
@@ -36,13 +38,19 @@ class LapControllerTest {
     @Mock
     EnergyUnitService energyUnitService;
 
+    @Mock
+    LapToLapCommandConverter lapToLapCommandConverter;
+
+    @Mock
+    LapCommandToLapConverter lapCommandToLapConverter;
+
     LapController lapController;
 
     MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
-        lapController = new LapController(lapService, runningEventService, energyUnitService);
+        lapController = new LapController(lapService, runningEventService, energyUnitService, lapToLapCommandConverter, lapCommandToLapConverter);
         mockMvc = MockMvcBuilders.standaloneSetup(lapController).build();
     }
 

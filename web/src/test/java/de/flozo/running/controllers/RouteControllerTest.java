@@ -1,5 +1,8 @@
 package de.flozo.running.controllers;
 
+import de.flozo.running.commands.RouteCommand;
+import de.flozo.running.converters.RouteCommandToRouteConverter;
+import de.flozo.running.converters.RouteToRouteCommandConverter;
 import de.flozo.running.model.Route;
 import de.flozo.running.services.RouteService;
 import de.flozo.running.services.RunningEventService;
@@ -29,13 +32,19 @@ class RouteControllerTest {
     @Mock
     RunningEventService runningEventService;
 
+    @Mock
+    RouteCommandToRouteConverter routeCommandToRouteConverter;
+
+    @Mock
+    RouteToRouteCommandConverter routeToRouteCommandConverter;
+
     RouteController routeController;
 
     MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
-        routeController = new RouteController(routeService, runningEventService);
+        routeController = new RouteController(routeService, runningEventService, routeCommandToRouteConverter, routeToRouteCommandConverter);
         mockMvc = MockMvcBuilders.standaloneSetup(routeController).build();
     }
 
@@ -63,21 +72,25 @@ class RouteControllerTest {
 
     @Test
     void createOrUpdate() throws Exception {
-        Route route = new Route();
-        route.setId(1L);
+        Route route = Route.builder().id(1L).build();
         when(routeService.findById(anyLong())).thenReturn(route);
+
+        RouteCommand routeCommand = RouteCommand.builder().id(1L).build();
+        when(routeToRouteCommandConverter.convert(any())).thenReturn(routeCommand);
 
         mockMvc.perform(get("/route/1/update"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("route/routeForm"))
-                .andExpect(model().attributeExists("route"));
+                .andExpect(model().attributeExists("routeCommand"));
     }
 
     @Test
     void processRouteForm() throws Exception {
-        Route route = new Route();
-        route.setId(1L);
+        Route route = Route.builder().id(1L).build();
         when(routeService.save(ArgumentMatchers.any())).thenReturn(route);
+
+        RouteCommand routeCommand = RouteCommand.builder().id(1L).build();
+        when(routeCommandToRouteConverter.convert(routeCommand)).thenReturn(route);
 
         mockMvc.perform(post("/route/"))
                 .andExpect(status().is3xxRedirection())

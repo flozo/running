@@ -180,17 +180,6 @@ public class DataLoader implements CommandLineRunner {
         lapService.save(lap22);
         lapService.save(lap23);
 
-//        Set<Lap> laps = new HashSet<>();
-//        laps.add(savedLap1);
-//        laps.add(savedLap2);
-//        laps.add(savedLap3);
-
-
-        System.out.println(lap1.getLapTime());
-        System.out.println(lap2.getLapTime());
-        System.out.println(lap3.getLapTime());
-
-//        System.out.println(runningEventService.findAll());
 
 
     }

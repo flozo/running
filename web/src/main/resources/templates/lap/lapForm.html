@@ -24,7 +24,7 @@
 <div class="container-fluid" style="margin-top: 20px">
   <div class="justify-content-center">
     <div class="col-md-8 offset-md-2">
-      <form th:object="${lap}" th:action="@{/running_event/{runningEventId}/lap/(runningEventId=${lap.getRunningEvent().getId()})}" method="post">
+      <form th:object="${lapCommand}" th:action="@{/running_event/{runningEventId}/lap/(runningEventId=${lapCommand.getRunningEventId()})}" method="post">
 
         <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
           <p>Please Correct Errors Below</p>
@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="col-md-3 form-group">
-                  <label for="lapTime">Lap time (hh:mm:ss.SS):</label>
+                  <label for="lapTime">Lap time (hh:mm:ss.SSS):</label>
                   <input id="lapTime" type="time" step="0.001" class="form-control" th:errorclass="is-invalid"
                          th:field="*{lapTime}" th:value="*{lapTime}"/>
                   <div class="invalid-feedback">
@@ -88,7 +88,7 @@
                   <select class="form-control" th:field="*{energyBurned.unit.id}">
                     <option th:each="unit : ${energyUnits}"
                             th:value="${unit.getId()}"
-                            th:selected="${unit.getId().equals(lap.getEnergyBurned().getUnit().getId())}"
+                            th:selected="${unit.getId().equals(lapCommand.getEnergyBurned().getUnit().getId())}"
                             th:text="@{{unitName} ({unitSymbol})(unitName=${unit.getUnitName()}, unitSymbol=${unit.getUnitSymbol()})}"
                     >energyUnit
                     </option>

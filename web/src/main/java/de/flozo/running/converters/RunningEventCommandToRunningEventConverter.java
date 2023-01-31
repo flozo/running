@@ -13,7 +13,6 @@ public class RunningEventCommandToRunningEventConverter implements Converter<Run
         return RunningEvent.builder()
                 .id(source.getId())
                 .eventType(eventType)
-//                .route()
                 .date(source.getDate())
                 .startTime(source.getStartTime())
                 .temperatureCelsius(source.getTemperature())

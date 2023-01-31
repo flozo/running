@@ -11,6 +11,7 @@ public class RunningEventCommandToRunningEventConverter implements Converter<Run
     public RunningEvent convert(RunningEventCommand source) {
         EventType eventType = EventType.values()[Math.toIntExact(source.getEventTypeId())];
         return RunningEvent.builder()
+                .id(source.getId())
                 .eventType(eventType)
 //                .route()
                 .date(source.getDate())

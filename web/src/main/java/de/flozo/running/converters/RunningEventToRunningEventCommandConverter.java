@@ -9,6 +9,7 @@ public class RunningEventToRunningEventCommandConverter implements Converter<Run
     @Override
     public RunningEventCommand convert(RunningEvent source) {
         return RunningEventCommand.builder()
+                .id(source.getId())
                 .eventTypeId(source.getId())
                 .date(source.getDate())
                 .startTime(source.getStartTime())

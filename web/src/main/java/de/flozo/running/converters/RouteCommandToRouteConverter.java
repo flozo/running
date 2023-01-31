@@ -11,6 +11,7 @@ public class RouteCommandToRouteConverter implements Converter<RouteCommand, Rou
     @Override
     public Route convert(RouteCommand source) {
         return Route.builder()
+                .id(source.getId())
                 .name(source.getRouteName())
                 .location(source.getLocation())
                 .totalDistanceKilometers(source.getTotalDistance())

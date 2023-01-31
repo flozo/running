@@ -42,7 +42,7 @@ public class RouteController {
 
     @GetMapping("/new")
     public String newRoute(Model model) {
-        model.addAttribute("route", new Route());
+        model.addAttribute("routeCommand", new RouteCommand());
         return ROUTE + ROUTE_FORM;
     }
 

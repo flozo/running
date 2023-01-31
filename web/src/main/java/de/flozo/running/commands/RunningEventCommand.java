@@ -14,6 +14,8 @@ import java.time.LocalTime;
 @Builder
 public class RunningEventCommand {
 
+    private Long id;
+
     @NotNull
     @Min(1)
     private Long eventTypeId;

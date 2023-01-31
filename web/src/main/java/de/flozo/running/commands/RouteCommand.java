@@ -1,16 +1,17 @@
 package de.flozo.running.commands;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Builder
 public class RouteCommand {
+
+    private Long id;
 
     @NotBlank
     private String routeName;
@@ -18,7 +19,8 @@ public class RouteCommand {
     @NotBlank
     private String location;
 
-    @Min(0)
+    @Digits(integer = 5, fraction = 3)
+    @DecimalMin("0.0")
     private Double totalDistance;
 
     @Min(0)

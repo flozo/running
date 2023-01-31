@@ -15,6 +15,8 @@ import java.time.LocalTime;
 @Builder
 public class LapCommand {
 
+    private Long id;
+
     @NotBlank
     @Min(1)
     @Max(1000)

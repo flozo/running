@@ -1,5 +1,6 @@
 package de.flozo.running.bootstrap;
 
+import de.flozo.running.converters.LapCommandToLapConverter;
 import de.flozo.running.model.*;
 import de.flozo.running.services.EnergyUnitService;
 import de.flozo.running.services.LapService;
@@ -20,12 +21,14 @@ public class DataLoader implements CommandLineRunner {
     private final RouteService routeService;
     private final RunningEventService runningEventService;
     private final EnergyUnitService energyUnitService;
+    private final LapCommandToLapConverter lapCommandToLapConverter;
 
-    public DataLoader(LapService lapService, RouteService routeService, RunningEventService runningEventService, EnergyUnitService energyUnitService) {
+    public DataLoader(LapService lapService, RouteService routeService, RunningEventService runningEventService, EnergyUnitService energyUnitService, LapCommandToLapConverter lapCommandToLapConverter) {
         this.lapService = lapService;
         this.routeService = routeService;
         this.runningEventService = runningEventService;
         this.energyUnitService = energyUnitService;
+        this.lapCommandToLapConverter = lapCommandToLapConverter;
     }
 
 
@@ -76,7 +79,6 @@ public class DataLoader implements CommandLineRunner {
         Route savedRoute2 = routeService.save(tenKmRoute2);
 
 
-
         // Define running event 1
 
         System.out.println("New running event ...");
@@ -104,7 +106,7 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("New laps ...");
         Lap lap1 = new Lap();
         lap1.setLapNumber(1);
-        lap1.setLapTime(LocalTime.of(0, 15, 29, 600000000));
+        lap1.setLapTime(lapCommandToLapConverter.timeToMilliseconds(LocalTime.of(0, 15, 29, 600000000)));
         lap1.setAvgHeartRate(174);
         lap1.setMaxHeartRate(180);
         lap1.setEnergyBurned(new Energy(233.0, savedKcal));
@@ -113,7 +115,7 @@ public class DataLoader implements CommandLineRunner {
         // Define lap 2
         Lap lap2 = new Lap();
         lap2.setLapNumber(2);
-        lap2.setLapTime(LocalTime.of(0, 16, 17, 200000000));
+        lap2.setLapTime(lapCommandToLapConverter.timeToMilliseconds(LocalTime.of(0, 16, 17, 200000000)));
         lap2.setAvgHeartRate(179);
         lap2.setMaxHeartRate(181);
         lap2.setEnergyBurned(new Energy(256.0, savedKcal));
@@ -122,7 +124,7 @@ public class DataLoader implements CommandLineRunner {
         // Define lap 3
         Lap lap3 = new Lap();
         lap3.setLapNumber(3);
-        lap3.setLapTime(LocalTime.of(0, 17, 28, 800000000));
+        lap3.setLapTime(lapCommandToLapConverter.timeToMilliseconds(LocalTime.of(0, 17, 28, 800000000)));
         lap3.setAvgHeartRate(182);
         lap3.setMaxHeartRate(187);
         lap3.setEnergyBurned(new Energy(281.0, savedKcal));
@@ -134,7 +136,7 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("New laps ...");
         Lap lap21 = new Lap();
         lap21.setLapNumber(1);
-        lap21.setLapTime(LocalTime.of(0, 16, 34, 0));
+        lap21.setLapTime(lapCommandToLapConverter.timeToMilliseconds(LocalTime.of(0, 16, 34, 0)));
         lap21.setAvgHeartRate(173);
         lap21.setMaxHeartRate(177);
         lap21.setEnergyBurned(new Energy(247.0, savedKcal));
@@ -143,7 +145,7 @@ public class DataLoader implements CommandLineRunner {
         // Define lap 2
         Lap lap22 = new Lap();
         lap22.setLapNumber(2);
-        lap22.setLapTime(LocalTime.of(0, 17, 36, 900000000));
+        lap22.setLapTime(lapCommandToLapConverter.timeToMilliseconds(LocalTime.of(0, 17, 36, 900000000)));
         lap22.setAvgHeartRate(173);
         lap22.setMaxHeartRate(178);
         lap22.setEnergyBurned(new Energy(265.0, savedKcal));
@@ -154,12 +156,11 @@ public class DataLoader implements CommandLineRunner {
         // Define lap 3
         Lap lap23 = new Lap();
         lap23.setLapNumber(3);
-        lap23.setLapTime(LocalTime.of(0, 17, 16, 400000000));
+        lap23.setLapTime(lapCommandToLapConverter.timeToMilliseconds(LocalTime.of(0, 17, 16, 400000000)));
         lap23.setAvgHeartRate(178);
         lap23.setMaxHeartRate(184);
         lap23.setEnergyBurned(energy);
         lap23.setRunningEvent(runningEvent2);
-
 
 
         runningEvent1.addLap(lap1).addLap(lap2).addLap(lap3);
@@ -190,7 +191,6 @@ public class DataLoader implements CommandLineRunner {
         System.out.println(lap3.getLapTime());
 
 //        System.out.println(runningEventService.findAll());
-
 
 
     }

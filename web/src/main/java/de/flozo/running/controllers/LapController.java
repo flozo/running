@@ -1,5 +1,6 @@
 package de.flozo.running.controllers;
 
+import de.flozo.running.commands.LapCommand;
 import de.flozo.running.model.Energy;
 import de.flozo.running.model.EnergyUnit;
 import de.flozo.running.model.Lap;
@@ -34,13 +35,23 @@ public class LapController {
 
     @GetMapping("/{runningEventId}/lap/new")
     public String newLap(@PathVariable Long runningEventId, Model model) {
-        Lap lap = new Lap();
-        lap.setRunningEvent(runningEventService.findById(runningEventId));
         EnergyUnit defaultUnit = energyUnitService.findById(1L);
-        Energy defaultEnergy = new Energy();
-        defaultEnergy.setUnit(defaultUnit);
-        lap.setEnergyBurned(defaultEnergy);
-        model.addAttribute("lap", lap);
+        Energy defaultEnergy = Energy.builder()
+                .unit(defaultUnit)
+                .build();
+        LapCommand lapCommand = LapCommand.builder()
+                .runningEventId(runningEventId)
+                .energyBurned(defaultEnergy)
+                .build();
+        model.addAttribute("lapCommand", lapCommand);
+
+//        Lap lap = new Lap();
+//        lap.setRunningEvent(runningEventService.findById(runningEventId));
+//        EnergyUnit defaultUnit = energyUnitService.findById(1L);
+//        Energy defaultEnergy = new Energy();
+//        defaultEnergy.setUnit(defaultUnit);
+//        lap.setEnergyBurned(defaultEnergy);
+//        model.addAttribute("lap", lap);
         model.addAttribute("energyUnits", energyUnitService.findAll());
         return LAP + LAP_FORM;
     }

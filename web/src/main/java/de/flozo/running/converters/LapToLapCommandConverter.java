@@ -28,8 +28,8 @@ public class LapToLapCommandConverter implements Converter<Lap, LapCommand> {
                 .lapTime(longToTime(source.getLapTime()))
                 .avgHeartRate(source.getAvgHeartRate())
                 .maxHeartRate(source.getMaxHeartRate())
-                .energyBurnedValue(source.getEnergyBurned().getValue())
-                .energyBurnedUnitId(source.getEnergyBurned().getUnit().getId())
+                .energyBurned(source.getEnergyBurned())
+//                .energyBurnedUnitId(source.getEnergyBurned().getUnit().getId())
                 .runningEventId(source.getRunningEvent().getId())
                 .build();
     }

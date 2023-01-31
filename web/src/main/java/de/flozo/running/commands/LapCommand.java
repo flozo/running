@@ -1,5 +1,6 @@
 package de.flozo.running.commands;
 
+import de.flozo.running.model.Energy;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -34,11 +35,11 @@ public class LapCommand {
     @Max(300)
     private Integer maxHeartRate;
 
-    private Double energyBurnedValue;
+//    private Double energyBurnedValue;
 
-    @NotNull
-    @Min(1)
-    private Long energyBurnedUnitId;
+//    @NotNull
+//    @Min(1)
+    private Energy energyBurned;
 
     @NotNull
     @Min(1)

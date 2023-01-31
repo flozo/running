@@ -1,10 +1,15 @@
 package de.flozo.running.controllers;
 
+import de.flozo.running.commands.RouteCommand;
+import de.flozo.running.converters.RouteCommandToRouteConverter;
+import de.flozo.running.converters.RouteToRouteCommandConverter;
 import de.flozo.running.model.Route;
 import de.flozo.running.services.RouteService;
 import de.flozo.running.services.RunningEventService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("route")
@@ -19,10 +24,14 @@ public class RouteController {
 
     private final RouteService routeService;
     private final RunningEventService runningEventService;
+    private final RouteCommandToRouteConverter routeCommandToRouteConverter;
+    private final RouteToRouteCommandConverter routeToRouteCommandConverter;
 
-    public RouteController(RouteService routeService, RunningEventService runningEventService) {
+    public RouteController(RouteService routeService, RunningEventService runningEventService, RouteCommandToRouteConverter routeCommandToRouteConverter, RouteToRouteCommandConverter routeToRouteCommandConverter) {
         this.routeService = routeService;
         this.runningEventService = runningEventService;
+        this.routeCommandToRouteConverter = routeCommandToRouteConverter;
+        this.routeToRouteCommandConverter = routeToRouteCommandConverter;
     }
 
     @GetMapping("/show")
@@ -40,14 +49,20 @@ public class RouteController {
 
     @GetMapping("/{id}/update")
     public String createOrUpdate(@PathVariable Long id, Model model) {
-        model.addAttribute("route", routeService.findById(id));
+        model.addAttribute("routeCommand", routeToRouteCommandConverter.convert(routeService.findById(id)));
         return ROUTE + ROUTE_FORM;
     }
 
     @PostMapping("/")
-    public String processRouteForm(@ModelAttribute Route route) {
+    public String processRouteForm(@Valid @ModelAttribute("routeCommand") RouteCommand routeCommand,
+                                   BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(System.out::println);
+            return ROUTE + ROUTE_FORM;
+        }
+        System.out.println(routeCommand);
+        Route route = routeCommandToRouteConverter.convert(routeCommand);
         Route savedRoute = routeService.save(route);
-//        return REDIRECT + ROUTE + savedRoute.getId() + "/" + SHOW;
         return REDIRECT + ROUTE + SHOW;
     }
 

@@ -24,12 +24,11 @@
 <div class="container-fluid" style="margin-top: 20px">
     <div class="justify-content-center">
         <div class="col-md-8 offset-md-2">
-            <form th:object="${route}" th:action="@{/route/}" method="post">
+            <form th:object="${routeCommand}" th:action="@{/route/}" method="post">
 
                 <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
                     <p>Please Correct Errors Below</p>
                 </div>
-
                 <input type="hidden" th:field="*{id}"/>
                 <div class="panel-group">
                     <div class="card mb-3">
@@ -39,11 +38,11 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-3 form-group">
-                                    <label for="name">Route name:</label>
-                                    <input id="name" type="text" class="form-control" th:errorclass="is-invalid"
-                                           th:field="*{name}" placeholder="enter name"/>
+                                    <label for="routeName">Route name:</label>
+                                    <input id="routeName" type="text" class="form-control" th:errorclass="is-invalid"
+                                           th:field="*{routeName}" placeholder="enter name"/>
                                     <div class="invalid-feedback">
-                                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
+                                        <p th:if="${#fields.hasErrors('routeName')}" th:errors="*{routeName}"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3 form-group">
@@ -55,11 +54,11 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3 form-group">
-                                    <label for="totalDistanceKilometers">Total distance (km):</label>
-                                    <input id="totalDistanceKilometers" type="text" class="form-control" th:errorclass="is-invalid"
-                                           th:field="*{totalDistanceKilometers}" placeholder="10.0"/>
+                                    <label for="totalDistance">Total distance (km):</label>
+                                    <input id="totalDistance" type="text" class="form-control" th:errorclass="is-invalid"
+                                           th:field="*{totalDistance}" placeholder="10.0"/>
                                     <div class="invalid-feedback">
-                                        <p th:if="${#fields.hasErrors('totalDistanceKilometers')}" th:errors="*{totalDistanceKilometers}"/>
+                                        <p th:if="${#fields.hasErrors('totalDistance')}" th:errors="*{totalDistance}"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3 form-group">

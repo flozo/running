@@ -86,13 +86,13 @@
                                 <td th:text="${running_event.getRoute().getLocation()}">Route location</td>
                                 <td th:text="${running_event.getDate()}">Training</td>
                                 <td><a href="#"
-                                       th:href="@{'/running_event/' + ${running_event.getId()} + '/show'}">View</a>
+                                       th:href="@{/running_event/{runningEventId}/show(runningEventId=${running_event.getId()})}">View</a>
                                 </td>
                                 <td><a href="#"
-                                       th:href="@{'/running_event/' + ${running_event.getId()} + '/update'}">Update</a>
+                                       th:href="@{/running_event/{runningEventId}/update(runningEventId=${running_event.getId()})}">Update</a>
                                 </td>
                                 <td><a href="#"
-                                       th:href="@{'/running_event/' + ${running_event.getId()} + '/delete'}">Delete</a>
+                                       th:href="@{/running_event/{runningEventId}/delete(runningEventId=${running_event.getId()})}">Delete</a>
                                 </td>
                             </tr>
                         </table>
